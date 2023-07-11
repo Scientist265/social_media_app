@@ -14,7 +14,7 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<user.User?>(
           stream: user.FirebaseAuth.instance.authStateChanges(),
@@ -49,9 +49,20 @@ class Auth {
       );
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomePage()));
-    } catch (e) {
-      throw Exception(e);
+    } on FirebaseException catch (e) {
+      Navigator.pop(context);
+      wrongPassword_email(context, e.code);
     }
+  }
+
+  // display error message for wrong login details
+  wrongPassword_email(context, String errorMessage) {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Text(errorMessage),
+            ));
+    Navigator.pop(context);
   }
 
   Future signUserUp(context, String email, String firstName, String lastName,

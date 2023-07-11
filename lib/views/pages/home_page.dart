@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      drawer: MyDrawer(  
+      drawer: MyDrawer(
         onProfileTap: () {
           goToProfilePage();
         },
