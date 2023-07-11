@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "487581279668",
+    "project_id": "devworld-socialmedia-app",
+    "storage_bucket": "devworld-socialmedia-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487581279668:android:ecec0faf66deef191cfee1",
+        "android_client_info": {
+          "package_name": "com.example.social_media_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487581279668-gr8jrqj1bihcgcbkulh6m8ap3krh332d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBSjw979buZ-4CbIPSB12Cp2H6Cdiri2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487581279668-gr8jrqj1bihcgcbkulh6m8ap3krh332d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "487581279668-1d62ck2lialroihutsqvae6ev1ch7cui.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.socialMediaApp.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
