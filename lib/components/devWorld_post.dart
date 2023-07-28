@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app/components/constants/colors.dart';
-import 'package:social_media_app/components/constants/sizing.dart';
 import 'package:social_media_app/components/like_button.dart';
 
 class DevWorldPost extends StatefulWidget {
@@ -62,40 +61,31 @@ class _DevWorldPostState extends State<DevWorldPost> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Flexible(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-              decoration: BoxDecoration(
-                  color: AppColors.textFieldBorder,
-                  borderRadius: BorderRadius.circular(15)),
-              child: Row(
-                children: [
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.message,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  )
-                ],
-              ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: BoxDecoration(
+                color: AppColors.textFieldBorder,
+                borderRadius: currUser == true
+                    ? const BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8),
+                        bottomLeft: Radius.circular(8))
+                    : const BorderRadius.only(
+                        bottomRight: Radius.circular(8),
+                        topRight: Radius.circular(8),
+                        bottomLeft: Radius.circular(8))),
+            child: Text(
+              widget.message,
+              style: const TextStyle(fontSize: 18),
             ),
           ),
-          AppSizing.h10,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 widget.user,
-                style: const TextStyle(color: Colors.grey),
+                style: TextStyle(color: Colors.grey[300]),
               ),
               Row(
                 children: [

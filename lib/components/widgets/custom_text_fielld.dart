@@ -5,6 +5,8 @@ TextFormField customTextField(
     TextEditingController? controller, String? hintText) {
   return TextFormField(
     controller: controller,
+    maxLines: 8,
+    minLines: 1,
     decoration: InputDecoration(
       hintText: hintText,
       fillColor: AppColors.textFieldBorder,

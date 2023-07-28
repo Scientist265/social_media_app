@@ -105,8 +105,8 @@ class _HomePageState extends State<HomePage> {
                                     time: posts['TimeStamp'].toString(),
                                     user: posts['UserEmail'],
                                     postId: posts.id,
-                                    whoLiked: List<String>.from(
-                                        posts['Likes'] ?? []));
+                                    whoLiked:
+                                        List<String>.from(posts['Likes']));
                               });
                         } else {
                           if (snapshot.hasError) {
