@@ -49,8 +49,8 @@ class Auth {
       );
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomePage()));
-    } on FirebaseException catch (e) {
-      wrongPassword_email(context, e.code);
+    } catch (e) {
+      throw Exception(e);
     }
   }
 
@@ -58,10 +58,13 @@ class Auth {
   wrongPassword_email(context, String errorMessage) {
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (_) => AlertDialog(
               title: Text(errorMessage),
             ));
+    Navigator.pop(context);
   }
+
+  // display error message for wrong login details
 
   Future signUserUp(
       context,
@@ -113,7 +116,7 @@ class Auth {
       'last name': lastName,
       'email': email,
       'address': address,
-      'bio':'Emtpy bio..'
+      'bio': 'Emtpy bio..'
     });
   }
 

@@ -28,43 +28,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        children: [
-          //profile picture
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration:
-                const BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
-            child: const Icon(
-              Icons.person,
-              size: 64,
-            ),
-          ),
-          AppSizing.h20,
-          // User email
-          Text(
-            "${currUser.email}",
-            style: const TextStyle(fontSize: 18, color: Colors.grey),
-            textAlign: TextAlign.center,
-          ),
-          MyTextBox(
-            text: 'devScientist',
-            sectionName: 'Hammed ibraheem Omowumi',
-            onTap: () {
-              editField('edit field');
-            },
-          ),
-          AppSizing.h10,
-          MyTextBox(
-            text: 'empty bio',
-            sectionName: 'bio',
-            onTap: () {
-              editField('edit field');
-            },
-          )
-        ],
-      ),
     );
   }
 }
