@@ -50,7 +50,6 @@ class Auth {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomePage()));
     } on FirebaseException catch (e) {
-      Navigator.pop(context);
       wrongPassword_email(context, e.code);
     }
   }
@@ -59,22 +58,38 @@ class Auth {
   wrongPassword_email(context, String errorMessage) {
     showDialog(
         context: context,
-        builder: (_) => AlertDialog(
+        builder: (context) => AlertDialog(
               title: Text(errorMessage),
             ));
-    Navigator.pop(context);
   }
 
-  Future signUserUp(context, String email, String firstName, String lastName,
-      String password, String confirmPassword, String address) async {
-    if (passwordConfirmed(context, password, confirmPassword)) {
+  Future signUserUp(
+      context,
+      String email,
+      String firstName,
+      String lastName,
+      String password,
+      String confirmPassword,
+      String address,
+      String userName) async {
+    if (passwordConfirmed(
+      context,
+      password,
+      confirmPassword,
+    )) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
         // adding user details
-        addUserDatails(firstName, lastName, email, address);
+        addUserDatails(
+          firstName,
+          lastName,
+          email,
+          address,
+          userName,
+        );
         Navigator.push(context,
             MaterialPageRoute(builder: ((context) => const HomePage())));
       } catch (err) {
@@ -90,13 +105,15 @@ class Auth {
   }
 
 // register user to the backend
-  Future addUserDatails(
-      String firstName, String lastName, String email, String address) async {
+  Future addUserDatails(String firstName, String lastName, String email,
+      String address, String emailFirstCharacter) async {
     await FirebaseFirestore.instance.collection('users').add({
+      'username': emailFirstCharacter,
       'first name': firstName,
       'last name': lastName,
       'email': email,
       'address': address,
+      'bio':'Emtpy bio..'
     });
   }
 

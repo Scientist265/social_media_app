@@ -62,29 +62,31 @@ class _DevWorldPostState extends State<DevWorldPost> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            decoration: BoxDecoration(
-                color: AppColors.textFieldBorder,
-                borderRadius: BorderRadius.circular(15)),
-            child: Row(
-              children: [
-                const SizedBox(
-                  width: 15,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.message,
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                )
-              ],
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              decoration: BoxDecoration(
+                  color: AppColors.textFieldBorder,
+                  borderRadius: BorderRadius.circular(15)),
+              child: Row(
+                children: [
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.message,
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
           AppSizing.h10,

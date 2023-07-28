@@ -93,6 +93,7 @@ class _SignUpState extends State<SignUp> {
                           _passwordController.text,
                           _confirmPasswordController.text,
                           _addressController.text,
+                          _emailController.text.split('@')[0]
                         ); // Navigator.push(context,
                         //     MaterialPageRoute(builder: (_) => const HomePage()));
                       })

@@ -55,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
               editField('edit field');
             },
           ),
-          AppSizing.h30,
+          AppSizing.h10,
           MyTextBox(
             text: 'empty bio',
             sectionName: 'bio',
