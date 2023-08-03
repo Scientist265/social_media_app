@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:social_media_app/components/constants/colors.dart';
 
-TextFormField customTextField(
-    TextEditingController? controller, String? hintText) {
-  return TextFormField(
-    controller: controller,
-    maxLines: 8,
-    minLines: 1,
-    decoration: InputDecoration(
-      hintText: hintText,
-      fillColor: AppColors.textFieldBorder,
-    ),
-  );
+import '../constants/styling.dart';
+
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
+    super.key,
+    this.controller,
+    required this.hintText,
+    this.suffixIcon,
+    this.validate,
+  });
+  final TextEditingController? controller;
+  final String hintText;
+  final Widget? suffixIcon;
+  final String? Function(String?)? validate;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      validator: validate,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
+        suffixIcon: suffixIcon,
+        hintText: hintText,
+        hintStyle: Styles.hintTextStyle,
+        fillColor: AppColors.fillColor,
+      ),
+    );
+  }
 }

@@ -65,7 +65,7 @@ class _DevWorldPostState extends State<DevWorldPost> {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
-                color: AppColors.textFieldBorder,
+                color: AppColors.fillColor,
                 borderRadius: currUser == true
                     ? const BorderRadius.only(
                         topLeft: Radius.circular(8),

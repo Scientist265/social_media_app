@@ -20,13 +20,7 @@ class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
   final _textController = TextEditingController();
 
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   _textController.dispose();
-  //   super.dispose();
-  // }
-
+// Message method
   void postMessage() {
     //only post if there is value in Textfield
     if (_textController.text.isNotEmpty) {
@@ -45,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // navigate to profile page
-  goToProfilePage() {
+  void goToProfilePage() {
     //pop drawer first
     Navigator.pop(context);
     // now do the navigation
@@ -54,8 +48,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   // sign user out
-  signUserOut() async {
-    await FirebaseAuth.instance.signOut();
+  void signUserOut() async {
+    Navigator.pop(context);
+    FirebaseAuth.instance.signOut;
   }
 
   @override
@@ -74,12 +69,8 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: MyDrawer(
-        onProfileTap: () {
-          goToProfilePage();
-        },
-        onSignOutTap: () {
-          signUserOut();
-        },
+        onProfileTap: goToProfilePage,
+        onSignOutTap: signUserOut,
       ),
       body: SafeArea(
           child: Center(
@@ -120,13 +111,11 @@ class _HomePageState extends State<HomePage> {
               // Post message
               Row(
                 children: [
-                  Expanded(
-                      child: customTextField(
-                          _textController, 'Write something ...')),
+                  const Expanded(
+                      child:
+                          CustomTextField(hintText: 'Write something here...')),
                   IconButton(
-                      onPressed: () {
-                        postMessage();
-                      },
+                      onPressed: postMessage,
                       icon: const Icon(Icons.send))
                 ],
               ),
@@ -140,6 +129,27 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       )),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: SingleChildScrollView(
+        child: Row(
+          children: [
+            Text('User'),
+            Spacer(),
+            Icon(Icons.barcode_reader),
+            Icon(Icons.favorite_border_outlined),
+            Icon(Icons.notifications)
+          ],
+        ),
+      ),
     );
   }
 }

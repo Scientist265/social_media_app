@@ -25,6 +25,8 @@ dependencies:
   firebase_core:
   firebase_auth: ^4.6.3
   cloud_firestore: ^4.8.2
+  barcode_widget:
+  flutter_barcode_scanner:
   
 
 

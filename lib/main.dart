@@ -2,7 +2,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:social_media_app/views/routes/routes.dart';
+import 'package:social_media_app/config/routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
@@ -33,7 +33,7 @@ class DevWorld extends StatelessWidget {
         darkTheme: FlexThemeData.dark(
             scheme: FlexScheme.rosewood,
             fontFamily: GoogleFonts.dmSans().fontFamily),
-        initialRoute: authRoute,
+        initialRoute: authPagesTabRoute,
         routes: routes,
       ),
     );

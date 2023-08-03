@@ -1,30 +1,37 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_app/components/constants/colors.dart';
+import 'package:social_media_app/config/loader.dart';
 import 'package:social_media_app/views/pages/auth_page.dart';
 
-import '../../components/constants/colors.dart';
 import '../../components/constants/sizing.dart';
 import '../../components/constants/styling.dart';
 import '../../components/widgets/custom_button.dart';
 import '../../components/widgets/custom_text_fielld.dart';
 
 // ignore: must_be_immutable
-class SignUp extends StatefulWidget {
-  SignUp({super.key, required this.showLoginPage});
-  VoidCallback showLoginPage;
+
+class SignUpTab extends StatefulWidget {
+  const SignUpTab({
+    super.key,
+  });
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignUpTab> createState() => _SignUpTabState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpTabState extends State<SignUpTab> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _addressController = TextEditingController();
+  bool isLoading = true;
+  final GlobalKey<FormState> _key = GlobalKey<FormState>(); // for validation
   final _auth = Auth();
 
+  String errorMessage = '';
   @override
   void dispose() {
     _emailController.dispose();
@@ -38,54 +45,100 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldBgColor,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15.0,
-          ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.lock,
-                    size: 100,
-                    color: AppColors.textFieldBorder,
-                  ),
-                  AppSizing.h40,
-                  Text('Welcome Back ',
-                      style: Styles.headLine
-                          .copyWith(color: AppColors.scaffoldColor)),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  customTextField(
-                      _firstNameController, 'enter your first name'),
-                  AppSizing.h20,
-                  customTextField(_lastNameController, 'enter your last name'),
-                  AppSizing.h20,
-                  customTextField(_emailController, 'enter your email'),
-                  AppSizing.h20,
-                  customTextField(_passwordController, 'enter your password'),
-                  AppSizing.h20,
-                  customTextField(
-                      _confirmPasswordController, 'confirm your password'),
-                  AppSizing.h20,
-                  customTextField(_addressController, 'enter your address'),
-                  AppSizing.h25,
-                  CustomButton(
-                      buttonText: 'Register',
-                      color: AppColors.buttonColor,
-                      onTap: () async{
-                        _auth.signUserUp(
+    return Form(
+      key: _key,
+      child: SizedBox(
+        height: 200,
+        width: double.infinity,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppSizing.h25,
+              Text(
+                'Sign Up ',
+                style:
+                    Styles.headLine.copyWith(color: Colors.white, fontSize: 30),
+              ),
+              AppSizing.h15,
+              const Text(
+                'First Name',
+                style: TextStyle(color: Colors.white),
+              ),
+              AppSizing.h10,
+              CustomTextField(
+                hintText: 'Enter your First Name',
+                controller: _firstNameController,
+              ),
+              AppSizing.h20,
+              const Text(
+                'Last Name',
+                style: TextStyle(color: Colors.white),
+              ),
+              AppSizing.h10,
+              CustomTextField(
+                hintText: 'Enter your Last Name',
+                controller: _lastNameController,
+              ),
+              AppSizing.h30,
+              const Text(
+                'Email',
+                style: TextStyle(color: Colors.white),
+              ),
+              AppSizing.h10,
+              CustomTextField(
+                hintText: 'Enter your Email',
+                controller: _emailController,
+                validate: validateEmail,
+              ),
+              AppSizing.h30,
+              const Text(
+                'Password',
+                style: TextStyle(color: Colors.white),
+              ),
+              AppSizing.h10,
+              CustomTextField(
+                hintText: 'Enter your Password',
+                controller: _passwordController,
+                validate: validatePassword,
+                suffixIcon: Visibility(
+                    child: Icon(
+                  Icons.visibility_off,
+                  color: AppColors.buttonColor,
+                )),
+              ),
+              AppSizing.h30,
+              const Text(
+                'Confirm Password',
+                style: TextStyle(color: Colors.white),
+              ),
+              AppSizing.h10,
+              CustomTextField(
+                hintText: ' confirm your password',
+                controller: _confirmPasswordController,
+              ),
+              AppSizing.h30,
+              const Text(
+                'Address',
+                style: TextStyle(color: Colors.white),
+              ),
+              AppSizing.h10,
+              CustomTextField(
+                hintText: 'Enter your address',
+                controller: _addressController,
+              ),
+              Text(
+                errorMessage,
+                style: Styles.primaryTextStyle,
+              ),
+              AppSizing.h30,
+              CustomButton(
+                buttonText: ' Register',
+                onTap: () async {
+                  loader(context);
+                  if (_key.currentState!.validate()) {
+                    try {
+                      _auth.signUserUp(
                           context,
                           _emailController.text,
                           _firstNameController.text,
@@ -93,16 +146,64 @@ class _SignUpState extends State<SignUp> {
                           _passwordController.text,
                           _confirmPasswordController.text,
                           _addressController.text,
-                          _emailController.text.split('@')[0]
-                        ); // Navigator.push(context,
-                        //     MaterialPageRoute(builder: (_) => const HomePage()));
-                      })
-                ],
+                          _emailController.text.split('@')[0]);
+                      errorMessage = '';
+                    } on FirebaseAuthException catch (error) {
+                      errorMessage = error.message!;
+                   
+                    }
+                  }
+                },
               ),
-            ),
+              AppSizing.h10,
+              const Center(
+                  child: Text(
+                'or Sign Up with',
+                style: TextStyle(color: Colors.grey),
+              )),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    subButton('lib/assets/logo/fb.png', 'Facebook'),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    subButton('lib/assets/logo/google.jpeg', 'Google'),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+}
+
+String? validateEmail(String? formEmail) {
+  if (formEmail == null || formEmail.isEmpty) {
+    return 'Email is required';
+  }
+  String pattern = r'\w+@\w+\.\w+';
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(formEmail)) return 'Invalid Email Address format';
+  return null;
+}
+
+String? validatePassword(String? formPassword) {
+  if (formPassword == null || formPassword.isEmpty) {
+    return 'Password is required';
+  }
+  String pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  RegExp regex = RegExp(pattern);
+  if (!regex.hasMatch(formPassword)) {
+    return '''
+Invalid Password format
+include an uppercase letter, number and symbol.
+  ''';
+  }
+  return null;
 }

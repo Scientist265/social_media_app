@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as user;
-import 'package:social_media_app/views/pages/home_page.dart';
-import 'package:social_media_app/views/pages/login_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:social_media_app/config/loader.dart';
+import 'package:social_media_app/views/pages/home_page.dart';
+import 'package:social_media_app/views/pages/welcome_page.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -21,7 +22,7 @@ class _AuthPageState extends State<AuthPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                return LoginPage(showRegisterPage: () {});
+                return const LoginOrSignUp();
               } else if (snapshot.hasError) {
                 return Center(
                   child: Text('${snapshot.error}'),
@@ -33,7 +34,7 @@ class _AuthPageState extends State<AuthPage> {
                 child: CircularProgressIndicator(),
               );
             }
-            return LoginPage(showRegisterPage: () {});
+            return const LoginOrSignUp();
           }),
     );
   }
@@ -44,13 +45,11 @@ class Auth {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      const Center(
-        child: CircularProgressIndicator(),
-      );
+
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomePage()));
-    } catch (e) {
-      throw Exception(e);
+    } on FirebaseAuthException {
+      wrongPassword_email(context, 'invalid email');
     }
   }
 
@@ -80,6 +79,7 @@ class Auth {
       password,
       confirmPassword,
     )) {
+      loader(context);
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
