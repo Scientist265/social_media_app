@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/components/constants/colors.dart';
-import 'package:social_media_app/components/constants/sizing.dart';
-import 'package:social_media_app/components/widgets/custom_button.dart';
-import 'package:social_media_app/components/widgets/custom_text_fielld.dart';
-import 'package:social_media_app/config/loader.dart';
-import 'package:social_media_app/views/pages/auth_page.dart';
-import 'package:social_media_app/views/pages/signup_page.dart';
+import 'package:social_media_app/utils/constants/colors.dart';
+import 'package:social_media_app/utils/constants/sizing.dart';
+import 'package:social_media_app/utils/widgets/custom_button.dart';
+import 'package:social_media_app/utils/widgets/custom_text_fielld.dart';
+import 'package:social_media_app/services/auth/auth_page.dart';
 
-import '../../components/constants/styling.dart';
+import '../../../config/validation/validation.dart';
+import '../../../utils/constants/styling.dart';
+
+
 
 class SignInTab extends StatefulWidget {
   const SignInTab({
@@ -61,7 +62,7 @@ class _SignInTabState extends State<SignInTab> {
               CustomTextField(
                 hintText: 'Enter your email',
                 controller: _emailController,
-                validate: validateEmail,
+                validator: validateEmail,
               ),
               AppSizing.h40,
               const Text(
@@ -71,7 +72,7 @@ class _SignInTabState extends State<SignInTab> {
               AppSizing.h10,
               CustomTextField(
                 hintText: 'Enter your password',
-                validate: validatePassword,
+                validator: validatePassword,
                 controller: _passwordController,
                 suffixIcon: Visibility(
                     child: Icon(
@@ -104,7 +105,7 @@ class _SignInTabState extends State<SignInTab> {
               CustomButton(
                 buttonText: 'Sign in',
                 onTap: () {
-                  loader(context);
+                  // loader(context);
 
                   if (_key.currentState!.validate()) {
                     auth.signUserIn(context, _emailController.text,

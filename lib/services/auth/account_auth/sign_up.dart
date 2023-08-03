@@ -1,13 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:social_media_app/components/constants/colors.dart';
+import 'package:social_media_app/utils/constants/colors.dart';
 import 'package:social_media_app/config/loader.dart';
-import 'package:social_media_app/views/pages/auth_page.dart';
+import 'package:social_media_app/services/auth/auth_page.dart';
 
-import '../../components/constants/sizing.dart';
-import '../../components/constants/styling.dart';
-import '../../components/widgets/custom_button.dart';
-import '../../components/widgets/custom_text_fielld.dart';
+import '../../../config/validation/validation.dart';
+import '../../../utils/constants/sizing.dart';
+import '../../../utils/constants/styling.dart';
+import '../../../utils/widgets/custom_button.dart';
+import '../../../utils/widgets/custom_text_fielld.dart';
+
 
 // ignore: must_be_immutable
 
@@ -69,6 +71,7 @@ class _SignUpTabState extends State<SignUpTab> {
               CustomTextField(
                 hintText: 'Enter your First Name',
                 controller: _firstNameController,
+                validator: validateText,
               ),
               AppSizing.h20,
               const Text(
@@ -79,6 +82,7 @@ class _SignUpTabState extends State<SignUpTab> {
               CustomTextField(
                 hintText: 'Enter your Last Name',
                 controller: _lastNameController,
+                validator: validateText,
               ),
               AppSizing.h30,
               const Text(
@@ -89,7 +93,7 @@ class _SignUpTabState extends State<SignUpTab> {
               CustomTextField(
                 hintText: 'Enter your Email',
                 controller: _emailController,
-                validate: validateEmail,
+                validator: validateEmail,
               ),
               AppSizing.h30,
               const Text(
@@ -100,7 +104,7 @@ class _SignUpTabState extends State<SignUpTab> {
               CustomTextField(
                 hintText: 'Enter your Password',
                 controller: _passwordController,
-                validate: validatePassword,
+                validator: validatePassword,
                 suffixIcon: Visibility(
                     child: Icon(
                   Icons.visibility_off,
@@ -126,6 +130,7 @@ class _SignUpTabState extends State<SignUpTab> {
               CustomTextField(
                 hintText: 'Enter your address',
                 controller: _addressController,
+                validator: validateText,
               ),
               Text(
                 errorMessage,
@@ -136,6 +141,9 @@ class _SignUpTabState extends State<SignUpTab> {
                 buttonText: ' Register',
                 onTap: () async {
                   loader(context);
+                  setState(() {
+                    errorMessage = '';
+                  });
                   if (_key.currentState!.validate()) {
                     try {
                       _auth.signUserUp(
@@ -147,10 +155,8 @@ class _SignUpTabState extends State<SignUpTab> {
                           _confirmPasswordController.text,
                           _addressController.text,
                           _emailController.text.split('@')[0]);
-                      errorMessage = '';
                     } on FirebaseAuthException catch (error) {
                       errorMessage = error.message!;
-                   
                     }
                   }
                 },
@@ -180,30 +186,4 @@ class _SignUpTabState extends State<SignUpTab> {
       ),
     );
   }
-}
-
-String? validateEmail(String? formEmail) {
-  if (formEmail == null || formEmail.isEmpty) {
-    return 'Email is required';
-  }
-  String pattern = r'\w+@\w+\.\w+';
-  RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formEmail)) return 'Invalid Email Address format';
-  return null;
-}
-
-String? validatePassword(String? formPassword) {
-  if (formPassword == null || formPassword.isEmpty) {
-    return 'Password is required';
-  }
-  String pattern =
-      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-  RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formPassword)) {
-    return '''
-Invalid Password format
-include an uppercase letter, number and symbol.
-  ''';
-  }
-  return null;
 }

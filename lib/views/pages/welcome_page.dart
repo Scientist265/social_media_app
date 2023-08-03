@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/components/constants/colors.dart';
-import 'package:social_media_app/components/widgets/custom_button.dart';
-import 'package:social_media_app/views/pages/signup_page.dart';
+import 'package:social_media_app/utils/constants/colors.dart';
+import 'package:social_media_app/utils/widgets/custom_button.dart';
 import 'package:social_media_app/config/routes/routes.dart';
 
-import '../../components/constants/sizing.dart';
-import '../../components/constants/styling.dart';
-import 'login_page.dart';
+import '../../services/auth/account_auth/sign_in.dart';
+import '../../services/auth/account_auth/sign_up.dart';
+import '../../utils/constants/sizing.dart';
+import '../../utils/constants/styling.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -70,6 +70,7 @@ class WelcomePage extends StatelessWidget {
     );
   }
 }
+
 class LoginOrSignUp extends StatelessWidget {
   const LoginOrSignUp({super.key});
 
@@ -119,4 +120,3 @@ class LoginOrSignUp extends StatelessWidget {
         ));
   }
 }
-

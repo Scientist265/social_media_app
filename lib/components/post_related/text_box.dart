@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/components/constants/colors.dart';
-import 'package:social_media_app/components/constants/sizing.dart';
+import 'package:social_media_app/utils/constants/colors.dart';
+import 'package:social_media_app/utils/constants/sizing.dart';
 
 class MyTextBox extends StatelessWidget {
   const MyTextBox(

@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:social_media_app/components/devWorld_post.dart';
-import 'package:social_media_app/components/drawer.dart';
-import 'package:social_media_app/components/widgets/custom_text_fielld.dart';
+import 'package:social_media_app/components/post_related/devWorld_post.dart';
+import 'package:social_media_app/components/drawer_related/drawer.dart';
+import 'package:social_media_app/utils/widgets/custom_text_fielld.dart';
 import 'package:social_media_app/views/pages/profile_page.dart';
 
-import '../../components/constants/styling.dart';
+import '../../utils/constants/styling.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

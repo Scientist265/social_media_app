@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:social_media_app/components/constants/colors.dart';
-import 'package:social_media_app/components/constants/sizing.dart';
+import 'package:social_media_app/utils/constants/colors.dart';
+import 'package:social_media_app/utils/constants/sizing.dart';
 
-import '../../components/constants/styling.dart';
+import '../../utils/constants/styling.dart';
 
 class BarCodeScan extends StatefulWidget {
   const BarCodeScan({super.key});

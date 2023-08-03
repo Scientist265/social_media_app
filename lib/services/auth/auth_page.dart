@@ -41,23 +41,30 @@ class _AuthPageState extends State<AuthPage> {
 }
 
 class Auth {
+  // Sign User In
   Future signUserIn(context, String email, String password) async {
     try {
+      loader(context);
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomePage()));
-    } on FirebaseAuthException {
-      wrongPassword_email(context, 'invalid email');
+    } catch (err) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text(err.toString()),
+              ));
+      Navigator.pop(context);
     }
   }
 
   // display error message for wrong login details
-  wrongPassword_email(context, String errorMessage) {
+  void wrongPassword_email(context, String errorMessage) {
     showDialog(
         context: context,
-        builder: (_) => AlertDialog(
+        builder: (context) => AlertDialog(
               title: Text(errorMessage),
             ));
     Navigator.pop(context);
@@ -74,6 +81,8 @@ class Auth {
       String confirmPassword,
       String address,
       String userName) async {
+    final navigator = Navigator.pop(context);
+
     if (passwordConfirmed(
       context,
       password,
@@ -85,6 +94,8 @@ class Auth {
           email: email,
           password: password,
         );
+        navigator; 
+
         // adding user details
         addUserDatails(
           firstName,
@@ -93,17 +104,20 @@ class Auth {
           address,
           userName,
         );
+
         Navigator.push(context,
             MaterialPageRoute(builder: ((context) => const HomePage())));
       } catch (err) {
         err.toString();
       }
+      navigator;
     } else {
       showDialog(
           context: context,
           builder: (_) => const AlertDialog(
                 content: Text('Password not match'),
               ));
+      navigator;
     }
   }
 

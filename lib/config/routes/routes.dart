@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../views/pages/auth_page.dart';
+import '../../services/auth/auth_page.dart';
 import '../../views/pages/home_page.dart';
-import '../../views/pages/login_page.dart';
-import '../../views/pages/signup_page.dart';
 import '../../views/pages/welcome_page.dart';
 
 Map<String, Widget Function(dynamic context)> routes = {

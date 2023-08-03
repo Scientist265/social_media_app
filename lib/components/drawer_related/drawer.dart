@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/components/my_list_tile.dart';
+import 'package:social_media_app/components/drawer_related/my_list_tile.dart';
 
-import 'constants/colors.dart';
+import '../../utils/constants/colors.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({

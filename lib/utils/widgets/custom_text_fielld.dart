@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/components/constants/colors.dart';
+import 'package:social_media_app/utils/constants/colors.dart';
 
 import '../constants/styling.dart';
 
@@ -9,18 +9,18 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     required this.hintText,
     this.suffixIcon,
-    this.validate,
+    this.validator,
   });
   final TextEditingController? controller;
   final String hintText;
   final Widget? suffixIcon;
-  final String? Function(String?)? validate;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      validator: validate,
+      validator: validator,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),

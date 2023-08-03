@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/components/constants/colors.dart';
+import 'package:social_media_app/utils/constants/colors.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton(
