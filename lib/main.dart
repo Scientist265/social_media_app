@@ -35,6 +35,7 @@ class DevWorld extends StatelessWidget {
             fontFamily: GoogleFonts.dmSans().fontFamily),
         initialRoute: authPagesTabRoute,
         routes: routes,
+        // onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
       ),
     );
   }

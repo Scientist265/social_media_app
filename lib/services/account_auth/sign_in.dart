@@ -5,10 +5,8 @@ import 'package:social_media_app/utils/widgets/custom_button.dart';
 import 'package:social_media_app/utils/widgets/custom_text_fielld.dart';
 import 'package:social_media_app/services/auth/auth_page.dart';
 
-import '../../../config/validation/validation.dart';
-import '../../../utils/constants/styling.dart';
-
-
+import '../../config/validation/validation.dart';
+import '../../utils/constants/styling.dart';
 
 class SignInTab extends StatefulWidget {
   const SignInTab({
@@ -24,6 +22,13 @@ class _SignInTabState extends State<SignInTab> {
   final _passwordController = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final auth = Auth();
+  bool isRemember = false;
+  bool isHidden = false;
+  void isPassHidden() {
+    setState(() {
+      isHidden = !isHidden;
+    });
+  }
 
   String errorMessage = '';
   @override
@@ -71,15 +76,21 @@ class _SignInTabState extends State<SignInTab> {
               ),
               AppSizing.h10,
               CustomTextField(
-                hintText: 'Enter your password',
-                validator: validatePassword,
-                controller: _passwordController,
-                suffixIcon: Visibility(
-                    child: Icon(
-                  Icons.visibility_off,
-                  color: AppColors.buttonColor,
-                )),
-              ),
+                  obscure: isHidden,
+                  hintText: 'Enter your password',
+                  validator: validatePassword,
+                  controller: _passwordController,
+                  suffixIcon: IconButton(
+                      onPressed: isPassHidden,
+                      icon: isHidden
+                          ? Icon(
+                              Icons.visibility,
+                              color: AppColors.buttonColor,
+                            )
+                          : Icon(
+                              Icons.visibility_off,
+                              color: AppColors.buttonColor,
+                            ))),
               AppSizing.h10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,15 +100,15 @@ class _SignInTabState extends State<SignInTab> {
                       child: Text('Forgot Password',
                           style: Styles.primaryTextStyle
                               .copyWith(color: AppColors.buttonColor))),
-                  SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: Checkbox(
-                      hoverColor: Colors.white,
-                      onChanged: (bool? value) {},
-                      value: false,
-                    ),
-                  )
+                  Switch(
+                      inactiveTrackColor: Colors.teal,
+                      activeTrackColor: AppColors.buttonColor,
+                      value: isRemember,
+                      onChanged: (val) {
+                        setState(() {
+                          isRemember = !isRemember;
+                        });
+                      })
                 ],
               ),
               AppSizing.h45,

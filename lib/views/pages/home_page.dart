@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   final _textController = TextEditingController();
 
 // Message method
-  void postMessage() {
+  Future<void> postMessage() async{
     //only post if there is value in Textfield
     if (_textController.text.isNotEmpty) {
       //store in firestore

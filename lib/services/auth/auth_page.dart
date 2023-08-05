@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as user;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:social_media_app/components/navbar/navbar.dart';
 import 'package:social_media_app/config/loader.dart';
-import 'package:social_media_app/views/pages/home_page.dart';
-import 'package:social_media_app/views/pages/welcome_page.dart';
+import 'package:social_media_app/config/routes/routes.dart';
+
+import '../../views/pages/login_signUp.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -48,8 +50,8 @@ class Auth {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const NavBar()));
     } catch (err) {
       showDialog(
           context: context,
@@ -94,7 +96,7 @@ class Auth {
           email: email,
           password: password,
         );
-        navigator; 
+        navigator;
 
         // adding user details
         addUserDatails(
@@ -105,8 +107,7 @@ class Auth {
           userName,
         );
 
-        Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => const HomePage())));
+        Navigator.pushNamedAndRemoveUntil(context, homeRoute, (route) => false);
       } catch (err) {
         err.toString();
       }

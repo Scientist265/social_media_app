@@ -4,11 +4,11 @@ import 'package:social_media_app/utils/constants/colors.dart';
 import 'package:social_media_app/config/loader.dart';
 import 'package:social_media_app/services/auth/auth_page.dart';
 
-import '../../../config/validation/validation.dart';
-import '../../../utils/constants/sizing.dart';
-import '../../../utils/constants/styling.dart';
-import '../../../utils/widgets/custom_button.dart';
-import '../../../utils/widgets/custom_text_fielld.dart';
+import '../../config/validation/validation.dart';
+import '../../utils/constants/sizing.dart';
+import '../../utils/constants/styling.dart';
+import '../../utils/widgets/custom_button.dart';
+import '../../utils/widgets/custom_text_fielld.dart';
 
 
 // ignore: must_be_immutable
