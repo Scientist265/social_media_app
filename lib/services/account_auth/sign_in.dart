@@ -23,7 +23,7 @@ class _SignInTabState extends State<SignInTab> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final auth = Auth();
   bool isRemember = false;
-  bool isHidden = false;
+  bool isHidden = true;
   void isPassHidden() {
     setState(() {
       isHidden = !isHidden;
